@@ -3,17 +3,20 @@ import HeaderComponent from './components/Header.component';
 import FormComponent from './components/Form.component';
 
 import CategoriesProvider from './context/Categories.context';
+import RecipiesProvider from './context/Recipies.context';
 
 function App() {
   return (
     <CategoriesProvider>
-      <HeaderComponent/>
+      <RecipiesProvider>
+        <HeaderComponent/>
 
-      <div className="container">
-        <div className="row">
-          <FormComponent/>
+        <div className="container">
+          <div className="row">
+            <FormComponent/>
+          </div>
         </div>
-      </div>
+      </RecipiesProvider>  
     </CategoriesProvider>
   );
 }

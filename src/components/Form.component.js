@@ -1,15 +1,50 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 
 import {CategoriesContext} from '../context/Categories.context';
+import {RecipiesContext} from '../context/Recipies.context';
 
 const FormComponent = () => {
 
-    const {categories} = useContext(CategoriesContext);
+    const [formData, setFormDataState] = useState({
+            ingredient:'',
+            category :''
+        }
+      );
 
+   // const [error, setErrorState] = useState(false);
+
+    const {categories} = useContext(CategoriesContext);
+    const {setFormSearchedState} = useContext(RecipiesContext);
     //console.log(categories);
-    
+
+    const onChangeForm = event => {
+      setFormDataState({
+      ...formData,
+
+      [event.target.name]: event.target.value
+      });
+    }  
+
+
+    const onSubmit = event => {
+        event.preventDefault();
+        setFormSearchedState(formData);
+/*
+        if (formData.ingredient.trim() ==='' || 
+        formData.category.trim() ==='' ){
+            
+      //      setErrorState(true);
+            return;
+        }
+      //  setErrorState(false);
+*/
+
+    }
+
+   
+
     return (
-        <form 
+        <form onSubmit={onSubmit}
         className="col-12">
             <fieldset className="text-center">
                 <legend>Which drink would you like to try in quarantine?</legend>
@@ -22,6 +57,7 @@ const FormComponent = () => {
                     className="form-control"
                     name="ingredient"
                     placeholder="Ingredients"
+                    onChange={onChangeForm}
                     />
                 </div>
 
@@ -29,6 +65,7 @@ const FormComponent = () => {
                     <select
                     className="form-control"
                     name="category"
+                    onChange={onChangeForm}
                     >
                         <option value="">- Select a Category-</option>
                 {/** Iteration */}
