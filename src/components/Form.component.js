@@ -4,9 +4,9 @@ import {CategoriesContext} from '../context/Categories.context';
 
 const FormComponent = () => {
 
-    const {formData} = useContext(CategoriesContext);
+    const {categories} = useContext(CategoriesContext);
 
-    console.log(formData);
+    //console.log(categories);
     
     return (
         <form 
@@ -29,9 +29,13 @@ const FormComponent = () => {
                     <select
                     className="form-control"
                     name="category"
-
                     >
                         <option value="">- Select a Category-</option>
+                {/** Iteration */}
+                    {categories.map(category => (
+                    <option key={category.strCategory} value={category.strCategory}>{category.strCategory}</option>
+                    ))}
+
                     </select>
                 </div>
 
