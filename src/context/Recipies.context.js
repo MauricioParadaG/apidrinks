@@ -12,16 +12,21 @@ const RecipiesProvider = (props) => {
         }
       );
 
+    //const [apiAnswer, setApiAnswerState] = useState({});
+
     useEffect(() => {
+        if(formSearched.category ==='') return;
+
         const askingRecipiesApi = async () =>{
-            const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+            const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${formSearched.ingredient}&c=${formSearched.category}`
             const res = await axios.get(url);
 
+            //console.log(res.data.drinks);
             setRecipiesState(res.data.drinks);
 
         }
         askingRecipiesApi();
-    }, []);
+    }, [formSearched]);
 
 
     return(
@@ -29,6 +34,7 @@ const RecipiesProvider = (props) => {
       value={{
         setFormSearchedState,
         recipies
+        
       }}>
         {props.children}
       </RecipiesContext.Provider>

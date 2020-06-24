@@ -4,6 +4,7 @@ import FormComponent from './components/Form.component';
 
 import CategoriesProvider from './context/Categories.context';
 import RecipiesProvider from './context/Recipies.context';
+import ListingRecipiesComponent from './components/ListingRecipies.component';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <div className="row">
             <FormComponent/>
           </div>
+          <ListingRecipiesComponent/>
         </div>
       </RecipiesProvider>  
     </CategoriesProvider>
