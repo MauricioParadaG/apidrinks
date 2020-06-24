@@ -3,22 +3,22 @@ import HeaderComponent from './components/Header.component';
 import FormComponent from './components/Form.component';
 
 import CategoriesProvider from './context/Categories.context';
-import RecipiesProvider from './context/Recipies.context';
-import ListingRecipiesComponent from './components/ListingRecipies.component';
+import RecipesProvider from './context/Recipes.context';
+import ListingRecipesComponent from './components/ListingRecipes.component';
 
 function App() {
   return (
     <CategoriesProvider>
-      <RecipiesProvider>
+      <RecipesProvider>
         <HeaderComponent/>
 
         <div className="container">
           <div className="row">
             <FormComponent/>
           </div>
-          <ListingRecipiesComponent/>
+          <ListingRecipesComponent/>
         </div>
-      </RecipiesProvider>  
+      </RecipesProvider>  
     </CategoriesProvider>
   );
 }

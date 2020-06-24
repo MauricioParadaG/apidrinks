@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 
 import {CategoriesContext} from '../context/Categories.context';
-import {RecipiesContext} from '../context/Recipies.context';
+import {RecipesContext} from '../context/Recipes.context';
 
 const FormComponent = () => {
 
@@ -14,7 +14,7 @@ const FormComponent = () => {
    // const [error, setErrorState] = useState(false);
 
     const {categories} = useContext(CategoriesContext);
-    const {setFormSearchedState} = useContext(RecipiesContext);
+    const {setFormSearchedState} = useContext(RecipesContext);
     //console.log(categories);
 
     const onChangeForm = event => {

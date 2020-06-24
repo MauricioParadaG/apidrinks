@@ -1,11 +1,11 @@
 import React, {createContext, useState, useEffect} from 'react';
 import axios from 'axios';
 
-export  const RecipiesContext = createContext();
+export  const RecipesContext = createContext();
 
-const RecipiesProvider = (props) => {
+const RecipesProvider = (props) => {
 
-    const [recipies, setRecipiesState] = useState([]);
+    const [recipes, setRecipesState] = useState([]);
     const [formSearched, setFormSearchedState] = useState({
             ingredient:'',
             category :''
@@ -17,30 +17,30 @@ const RecipiesProvider = (props) => {
     useEffect(() => {
         if(formSearched.category ==='') return;
 
-        const askingRecipiesApi = async () =>{
+        const askingRecipesApi = async () =>{
             const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${formSearched.ingredient}&c=${formSearched.category}`
             const res = await axios.get(url);
 
             //console.log(res.data.drinks);
-            setRecipiesState(res.data.drinks);
+            setRecipesState(res.data.drinks);
 
         }
-        askingRecipiesApi();
+        askingRecipesApi();
     }, [formSearched]);
 
 
     return(
-      <RecipiesContext.Provider
+      <RecipesContext.Provider
       value={{
         setFormSearchedState,
-        recipies
+        recipes
         
       }}>
         {props.children}
-      </RecipiesContext.Provider>
+      </RecipesContext.Provider>
     )
 }
 
-export default RecipiesProvider;
+export default RecipesProvider;
 
 
