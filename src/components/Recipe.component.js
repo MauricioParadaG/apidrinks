@@ -17,16 +17,23 @@ import Modal from '@material-ui/core/Modal';
     };
   }
   
-  const useStyles = makeStyles((theme) => ({
+
+  const useStyles = makeStyles(theme => ({
     paper: {
       position: 'absolute',
-      width: 540,
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',  
+      },
+      [theme.breakpoints.up('sm')]: {
+        width: 430,  
+      },
+      maxHeight: 500,
+      overflowY: 'auto',
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
-  }));
+}));
 
 
 
@@ -51,7 +58,22 @@ const RecipeComponent = props => {
         setOpen(false);
     }
 
-    const {setIdModalRecipeState} = useContext(ModalContext);
+    const {apiAnswer, setApiAnswerState, setIdModalRecipeState} = useContext(ModalContext);
+
+    //console.log(apiAnswer);
+
+    const showRecipeIngredients = apiAnswer => {
+        let recipeIngredients = [];
+        for(let i=1; i < 16; i++){
+            if(apiAnswer[`strIngredient${i}`]){
+                recipeIngredients.push(
+                <li key={i}>{apiAnswer[`strIngredient${i}`]} {apiAnswer[`strMeasure${i}`]}</li>
+                )
+            }
+        }
+
+        return recipeIngredients;
+    }
 
     return (
         <div className="col-md-4 mb-3">
@@ -76,13 +98,24 @@ const RecipeComponent = props => {
                 <Modal
                     open={open}
                     onClose={() =>{
-                        setIdModalRecipeState(null),
+                        setIdModalRecipeState(null);
+                        setApiAnswerState({});
                         handleClose();
                     }}
                 >
                 <div style={modalStyle}
                 className={classes.paper}>
-                    <h1>From Modal</h1>
+                    <h2>{apiAnswer.strDrink}</h2>
+                    <h3 className="mt-4">How to prepare it!</h3>
+                    <p>{apiAnswer.strInstructionsDE}</p>
+                
+                    <img className="img-fluid my-4" src={apiAnswer.strDrinkThumb} alt="Ingridients"/>
+
+                    <h3>Recipe</h3>
+                    <ul>
+                        {showRecipeIngredients(apiAnswer)}
+                    </ul>
+
                 </div>
 
                 </Modal>
